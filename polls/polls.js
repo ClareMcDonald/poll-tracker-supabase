@@ -2,12 +2,20 @@ import { renderPoll } from '../render-utils.js';
 import { getPastPolls } from '../fetch-utils.js';
 
 const newPollForm = document.querySelector('#new-poll');
+const currentQuestionEl = document.querySelector('#current-question');
+const currentOptionAEl = document.querySelector('#option-a-title');
+const currentOptionAVotesEl = document.querySelector('#option-a-votes');
 const voteAButton = document.querySelector('#vote-a');
+const currentOptionBEl = document.querySelector('#option-b-title');
+const currentOptionBVotesEl = document.querySelector('#option-b-votes');
 const voteBButton = document.querySelector('#vote-b');
-const currentPollEl = document.querySelector('#current-poll');
+const finishPollButton = document.querySelector('#finsih-poll');
 const pastPollsEl = document.querySelector('#past-polls');
 
+console.log(currentOptionBVotesEl, currentOptionAVotesEl);
 //console.log(newPollForm, voteAButton, voteBButton, currentPollEl, pastPollsEl);
+
+let question = '';
 let optionAName = '';
 let optionBName = '';
 let optionAVotes = 0;
@@ -22,25 +30,27 @@ window.addEventListener('load', async() => {
 newPollForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const data = new FormData(newPollFrom)
+    const data = new FormData(newPollForm);
     const question = data.get('question');
     const optionA = data.get('option-A');
     const optionB = data.get('option-B');
     
-    displayCurrentPoll();
+    currentQuestionEl.textContent = question;
+    currentOptionAEl.textContent = optionA;
+    currentOptionBEl.textContent = optionB;
 
 });
 
 voteAButton.addEventListener('click', () => {
     optionAVotes++;
 
-    displayCurrentPoll();
+    currentOptionAVotesEl.textContent = optionAVotes;
 }); 
 
 voteBButton.addEventListener('click', () => {
     optionBVotes++;
 
-    displayCurrentPoll();
+    currentOptionBVotesEl.textContent = optionBVotes;
 });
 
 
