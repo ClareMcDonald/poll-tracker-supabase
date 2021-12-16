@@ -1,3 +1,6 @@
+import { renderPoll } from '../render-utils.js';
+import { getPastPolls } from '../fetch-utils.js';
+
 const newPollForm = document.querySelector('#new-poll');
 const voteAButton = document.querySelector('#vote-a');
 const voteBButton = document.querySelector('#vote-b');
@@ -11,7 +14,7 @@ let optionAVotes = 0;
 let optionBVotes = 0;
 
 window.addEventListener('load', async() => {
-    await getpastPolls();
+    await getPastPolls();
 
     displayPolls();
 });
@@ -25,7 +28,7 @@ newPollForm.addEventListener('submit', (e) => {
     const optionB = data.get('option-B');
     
     displayCurrentPoll();
-    
+
 });
 
 voteAButton.addEventListener('click', () => {
@@ -46,6 +49,12 @@ function displayCurrentPoll() {
 
 }
 
-function displayPolls() {
+async function displayPolls() {
+    const polls = await getPastPolls();
 
+    for (let poll of polls) {
+        const pollItem = renderPoll(poll);
+
+        pastPollsEl.append(pollItem);
+    }
 }

@@ -5,7 +5,6 @@ const SUPABASE_URL = 'https://svsgcwfpfpqmbyumootr.supabase.co';
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 
-
 export async function signUp(email, password) {
     const response = await client.auth.signUp({
         email,
@@ -22,4 +21,27 @@ export async function signIn(email, password) {
     });
 
     return response;
+}
+
+export async function savePoll(question, option1, option2, votes1, votes2) {
+    const response = await client
+        .from('polls')
+        .insert([{
+            question: question,
+            option_1: option1,
+            option_2: option2,
+            votes_1: option1,
+            votes_2: votes2
+        }
+        ]);
+    return response;
+}
+
+
+export async function getPastPolls() {
+    const response = await client
+        .from('polls')
+        .select();
+    
+    return response.data;
 }
