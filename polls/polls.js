@@ -1,5 +1,5 @@
 import { renderPoll } from '../render-utils.js';
-import { getPastPolls } from '../fetch-utils.js';
+import { savePoll, getPastPolls } from '../fetch-utils.js';
 
 const newPollForm = document.querySelector('#new-poll');
 const currentQuestionEl = document.querySelector('#current-question');
@@ -9,17 +9,17 @@ const voteAButton = document.querySelector('#vote-a');
 const currentOptionBEl = document.querySelector('#option-b-title');
 const currentOptionBVotesEl = document.querySelector('#option-b-votes');
 const voteBButton = document.querySelector('#vote-b');
-const finishPollButton = document.querySelector('#finsih-poll');
+const finishPollButton = document.querySelector('#finish-poll');
 const pastPollsEl = document.querySelector('#past-polls');
 
 console.log(currentOptionBVotesEl, currentOptionAVotesEl);
 //console.log(newPollForm, voteAButton, voteBButton, currentPollEl, pastPollsEl);
 
 let question = '';
-let optionAName = '';
-let optionBName = '';
-let optionAVotes = 0;
-let optionBVotes = 0;
+let optionA = '';
+let optionB = '';
+let votesA = 0;
+let votesB = 0;
 
 window.addEventListener('load', async() => {
     await getPastPolls();
@@ -39,28 +39,33 @@ newPollForm.addEventListener('submit', (e) => {
     currentOptionAEl.textContent = optionA;
     currentOptionBEl.textContent = optionB;
 
+    newPollForm.reset();
 });
 
 voteAButton.addEventListener('click', () => {
-    optionAVotes++;
+    votesA++;
 
-    currentOptionAVotesEl.textContent = optionAVotes;
+    currentOptionAVotesEl.textContent = votesA;
 }); 
 
 voteBButton.addEventListener('click', () => {
-    optionBVotes++;
+    votesB++;
 
-    currentOptionBVotesEl.textContent = optionBVotes;
+    currentOptionBVotesEl.textContent = votesB;
 });
 
+finishPollButton.addEventListener('click', async() => {
+    await savePoll(question, optionA, optionB, votesA, votesB);
 
-
-function displayCurrentPoll() {
-
-}
+    displayPolls();
+    pastPollsEl.textContent = '';
+    current
+});
 
 async function displayPolls() {
     const polls = await getPastPolls();
+
+    pastPollsEl.textContent = '';
 
     for (let poll of polls) {
         const pollItem = renderPoll(poll);

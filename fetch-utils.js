@@ -23,16 +23,17 @@ export async function signIn(email, password) {
     return response;
 }
 
-export async function savePoll(question, option1, option2, votes1, votes2) {
+export async function savePoll(question, optionA, optionB, votesA, votesB) {
     const response = await client
         .from('polls')
-        .insert([{
-            question: question,
-            option_1: option1,
-            option_2: option2,
-            votes_1: option1,
-            votes_2: votes2
-        }
+        .insert([
+            {
+                question: question,
+                option_a: optionA,
+                option_b: optionB,
+                votes_a: votesA,
+                votes_b: votesB
+            }
         ]);
     return response;
 }
