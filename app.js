@@ -1,10 +1,10 @@
 // import functions and grab DOM elements
 import { signIn, signUp } from './fetch-utils.js';
 
-const signInForm = document.querySelector('#signin');
-const signUpForm = document.querySelector('#signup');
+const signInForm = document.querySelector('#sign-in');
+const signUpForm = document.querySelector('#sign-up');
 
-//console.log(signInForm, signUpForm);
+
 
 
 // let state
