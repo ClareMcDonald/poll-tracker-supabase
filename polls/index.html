@@ -21,14 +21,32 @@
     </header>
     <main>
         <section class="main-section">
-        
+        <form id = "new-poll">
+            <label>
+                Question
+                <input name = "question">
+            </label>
+            <label>
+                Option A
+                <input name = "option-A">
+            </label>
+            <label>
+                Option B
+                <input name = "option-B">
+            </label>
+            <button>Create Poll</button>
+        </form>
+        <button id = "vote-a">Vote</button>
+        <button id = "vote-b">Vote</button>
+        <div id = "current-poll"></div>
+        <div id = "past-polls"></div>
         </section>
     </main>
     <footer>
         <div class="copy gutter-right">&copy; 2021 Alchemy Code Lab</div>
     </footer>
 
-    <script type="module" src="../app.js"></script>
+    <script type="module" src="./polls.js"></script>
 </body>
 
 </html>
