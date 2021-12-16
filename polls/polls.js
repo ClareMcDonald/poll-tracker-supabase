@@ -16,6 +16,18 @@ window.addEventListener('load', async() => {
     displayPolls();
 });
 
+newPollForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const data = new FormData(newPollFrom)
+    const question = data.get('question');
+    const optionA = data.get('option-A');
+    const optionB = data.get('option-B');
+    
+    displayCurrentPoll();
+    
+});
+
 voteAButton.addEventListener('click', () => {
     optionAVotes++;
 
@@ -35,5 +47,5 @@ function displayCurrentPoll() {
 }
 
 function displayPolls() {
-    
+
 }
