@@ -23,6 +23,12 @@ export async function signIn(email, password) {
     return response.user;
 }
 
+export async function logout() {
+    await client.auth.signOut();
+
+    return window.location.href = '../';
+}
+
 export async function savePoll(question, optionA, optionB, votesA, votesB) {
     const response = await client
         .from('polls')

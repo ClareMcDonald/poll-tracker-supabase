@@ -14,7 +14,7 @@ export function renderPoll(poll) {
     votesAEl.textContent = poll.votes_a;
     votesBEl.textContent = poll.votes_b;
 
-    pollEl.append(questionEl, optionAEl, optionBEl, votesAEl, votesBEl);
+    pollEl.append(questionEl, optionAEl, votesAEl, optionBEl, votesBEl);
 
     return pollEl;
 }

@@ -1,5 +1,5 @@
 import { renderPoll } from '../render-utils.js';
-import { savePoll, getPastPolls } from '../fetch-utils.js';
+import { savePoll, getPastPolls, logout } from '../fetch-utils.js';
 
 const newPollForm = document.querySelector('#new-poll');
 const currentQuestionEl = document.querySelector('#current-question');
@@ -11,9 +11,7 @@ const currentOptionBVotesEl = document.querySelector('#option-b-votes');
 const voteBButton = document.querySelector('#vote-b');
 const finishPollButton = document.querySelector('#finish-poll');
 const pastPollsEl = document.querySelector('#past-polls');
-
-console.log(currentOptionBVotesEl, currentOptionAVotesEl);
-//console.log(newPollForm, voteAButton, voteBButton, currentPollEl, pastPollsEl);
+const logOutButton = document.querySelector('#logout');
 
 let question = '';
 let optionA = '';
@@ -25,6 +23,10 @@ window.addEventListener('load', async() => {
     await getPastPolls();
 
     displayPolls();
+});
+
+logOutButton.addEventListener('click', async() => {
+    await logout();
 });
 
 newPollForm.addEventListener('submit', (e) => {
@@ -55,9 +57,8 @@ voteBButton.addEventListener('click', () => {
 });
 
 finishPollButton.addEventListener('click', async () => {
-    console.log(question, optionA, optionB, votesA, votesB);
     const finishPoll = await savePoll(question, optionA, optionB, votesA, votesB);
-    console.log(finishPoll);
+
     displayPolls();
     pastPollsEl.textContent = '';
     //current
@@ -72,6 +73,6 @@ async function displayPolls() {
         const pollItem = renderPoll(poll);
 
         pastPollsEl.append(pollItem);
-        console.log(pastPollsEl);
+       
     }
 }
