@@ -31,9 +31,9 @@ newPollForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const data = new FormData(newPollForm);
-    const question = data.get('question');
-    const optionA = data.get('option-A');
-    const optionB = data.get('option-B');
+    question = data.get('question');
+    optionA = data.get('option-A');
+    optionB = data.get('option-B');
     
     currentQuestionEl.textContent = question;
     currentOptionAEl.textContent = optionA;
@@ -54,12 +54,13 @@ voteBButton.addEventListener('click', () => {
     currentOptionBVotesEl.textContent = votesB;
 });
 
-finishPollButton.addEventListener('click', async() => {
-    await savePoll(question, optionA, optionB, votesA, votesB);
-
+finishPollButton.addEventListener('click', async () => {
+    console.log(question, optionA, optionB, votesA, votesB);
+    const finishPoll = await savePoll(question, optionA, optionB, votesA, votesB);
+    console.log(finishPoll);
     displayPolls();
     pastPollsEl.textContent = '';
-    current
+    //current
 });
 
 async function displayPolls() {
@@ -71,5 +72,6 @@ async function displayPolls() {
         const pollItem = renderPoll(poll);
 
         pastPollsEl.append(pollItem);
+        console.log(pastPollsEl);
     }
 }

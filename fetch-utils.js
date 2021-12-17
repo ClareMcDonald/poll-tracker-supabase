@@ -24,6 +24,7 @@ export async function signIn(email, password) {
 }
 
 export async function savePoll(question, optionA, optionB, votesA, votesB) {
+    console.log(question, optionA, optionB, votesA, votesB);
     const response = await client
         .from('polls')
         .insert([
@@ -32,10 +33,11 @@ export async function savePoll(question, optionA, optionB, votesA, votesB) {
                 option_a: optionA,
                 option_b: optionB,
                 votes_a: votesA,
-                votes_b: votesB
+                votes_b: votesB,
+                //user_id: client.auth.user().id,
             }
         ]);
-    return response;
+    return response.data;
 }
 
 

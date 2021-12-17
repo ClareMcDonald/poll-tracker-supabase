@@ -26,10 +26,14 @@ signInForm.addEventListener('submit', async(e) => {
     const email = data.get('email-input-in');
     const password = data.get('password-input-in');
 
+    const user = await signIn(email, password);
     await signIn(email, password);
 
-    window.location.href = './polls';
-
+    if (!user) {
+        window.location.href = './';
+    } else {
+        window.location.href = './polls';
+    }
 });
 
 
