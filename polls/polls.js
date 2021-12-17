@@ -55,8 +55,8 @@ voteBButton.addEventListener('click', () => {
     displayCurrentPollEl();
 });
 
-finishPollButton.addEventListener('click', async () => {
-    const finishPoll = await savePoll(question, optionA, optionB, votesA, votesB);
+finishPollButton.addEventListener('click', async() => {
+    await savePoll(question, optionA, optionB, votesA, votesB);
 
     displayPolls();
     pastPollsEl.textContent = '';
