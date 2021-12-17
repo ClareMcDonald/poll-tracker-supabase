@@ -1,5 +1,5 @@
 // import functions and grab DOM elements
-import { signIn, signUp } from './fetch-utils.js';
+import { signIn, signUp, } from './fetch-utils.js';
 
 const signInForm = document.querySelector('#sign-in');
 const signUpForm = document.querySelector('#sign-up');
@@ -13,9 +13,9 @@ signUpForm.addEventListener('submit', async(e) => {
     const data = new FormData(signUpForm);
     const email = data.get('email-input-up');
     const password = data.get('password-input-up');
-  
+
     const user = await signUp(email, password);
-  
+
     if (user === true) {
         window.location.href = './polls';
     } else {

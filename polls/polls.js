@@ -1,5 +1,5 @@
 import { renderPoll } from '../render-utils.js';
-import { savePoll, getPastPolls, logout } from '../fetch-utils.js';
+import { checkLoggedIn, savePoll, getPastPolls, logout } from '../fetch-utils.js';
 
 const newPollForm = document.querySelector('#new-poll');
 const currentQuestionEl = document.querySelector('#current-question');
@@ -20,6 +20,7 @@ let votesA = 0;
 let votesB = 0;
 
 window.addEventListener('load', async() => {
+    checkLoggedIn();
     await getPastPolls();
 
     displayPolls();
@@ -37,9 +38,7 @@ newPollForm.addEventListener('submit', (e) => {
     optionA = data.get('option-A');
     optionB = data.get('option-B');
     
-    currentQuestionEl.textContent = question;
-    currentOptionAEl.textContent = optionA;
-    currentOptionBEl.textContent = optionB;
+    displayCurrentPollEl(); 
 
     newPollForm.reset();
 });
@@ -47,13 +46,13 @@ newPollForm.addEventListener('submit', (e) => {
 voteAButton.addEventListener('click', () => {
     votesA++;
 
-    currentOptionAVotesEl.textContent = votesA;
+    displayCurrentPollEl();
 }); 
 
 voteBButton.addEventListener('click', () => {
     votesB++;
 
-    currentOptionBVotesEl.textContent = votesB;
+    displayCurrentPollEl();
 });
 
 finishPollButton.addEventListener('click', async () => {
@@ -61,8 +60,15 @@ finishPollButton.addEventListener('click', async () => {
 
     displayPolls();
     pastPollsEl.textContent = '';
-    //current
 });
+
+function displayCurrentPollEl() {
+    currentQuestionEl.textContent = question;
+    currentOptionAEl.textContent = optionA;
+    currentOptionBEl.textContent = optionB;
+    currentOptionAVotesEl.textContent = votesA;
+    currentOptionBVotesEl.textContent = votesB;
+}
 
 async function displayPolls() {
     const polls = await getPastPolls();
@@ -73,6 +79,5 @@ async function displayPolls() {
         const pollItem = renderPoll(poll);
 
         pastPollsEl.append(pollItem);
-       
     }
 }
