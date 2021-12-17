@@ -1,9 +1,10 @@
 // IMPORT MODULES under test here:
 // import { example } from '../example.js';
+import { renderPoll } from '../render-utils.js';
 
 const test = QUnit.test;
 
-test('time to test a function', (expect) => {
+test('renderPoll function should create 5 p tags and div and append all p to div', (expect) => {
     //Arrange
     // Set up your arguments and expectations
     const expected = true;
