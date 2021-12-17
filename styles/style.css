@@ -36,7 +36,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: calc(var(--footer-height));
+  
 }
 
 section {
@@ -88,4 +88,17 @@ footer {
     justify-content: flex-end;
     background-color: var(--color3);
     box-shadow: var(--shadow);
+}
+
+form label {
+    display: block;
+}
+
+button {
+    background-color: lightblue;
+}
+
+.poll-item {
+    border: 3px solid lightblue;
+    margin: 3px;
 }
