@@ -4,6 +4,15 @@ const SUPABASE_URL = 'https://svsgcwfpfpqmbyumootr.supabase.co';
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+//export async function getUser() {
+ //   return client.auth.user();
+//}
+
+export function checkLoggedIn() {
+    if (!client.auth.session()) {
+        window.location = '../';
+    }
+}
 
 export async function signUp(email, password) {
     const response = await client.auth.signUp({
@@ -39,7 +48,7 @@ export async function savePoll(question, optionA, optionB, votesA, votesB) {
                 option_b: optionB,
                 votes_a: votesA,
                 votes_b: votesB,
-                //user_id: client.auth.user().id,
+                user_id: client.auth.user().id,
             }
         ]);
     return response.data;
