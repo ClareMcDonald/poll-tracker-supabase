@@ -10,8 +10,8 @@ export async function signUp(email, password) {
         email,
         password
     });
-
-    return response;
+    
+    return response.user;
 }
 
 export async function signIn(email, password) {
@@ -20,11 +20,10 @@ export async function signIn(email, password) {
         password
     });
 
-    return response;
+    return response.user;
 }
 
 export async function savePoll(question, optionA, optionB, votesA, votesB) {
-    console.log(question, optionA, optionB, votesA, votesB);
     const response = await client
         .from('polls')
         .insert([
@@ -47,4 +46,5 @@ export async function getPastPolls() {
         .select();
     
     return response.data;
+    //return client.auth.session();
 }

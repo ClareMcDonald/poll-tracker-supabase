@@ -11,12 +11,16 @@ signUpForm.addEventListener('submit', async(e) => {
     e.preventDefault();
 
     const data = new FormData(signUpForm);
-    const email = data.get('email-sign-up');
-    const password = data.get('password-sign-up');
-
-    await signUp(email, password);
-
-    window.location.href = './polls';
+    const email = data.get('email-input-up');
+    const password = data.get('password-input-up');
+  
+    const user = await signUp(email, password);
+  
+    if (user === true) {
+        window.location.href = './polls';
+    } else {
+        window.location.href = './';
+    }
 });
 
 signInForm.addEventListener('submit', async(e) => {
@@ -27,7 +31,6 @@ signInForm.addEventListener('submit', async(e) => {
     const password = data.get('password-input-in');
 
     const user = await signIn(email, password);
-    await signIn(email, password);
 
     if (!user) {
         window.location.href = './';
